@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <title>For My Love 💖</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #ffd6e8, #ffeef5);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .box {
+      background: white;
+      padding: 50px;
+      border-radius: 100px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      text-align: center;
+      max-width: 500px;
+      width: 90%;
+    }
+
+    h1 {
+      color: #ff4d8d;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 12px 25px;
+      border: none;
+      border-radius: 25px;
+      background: #ff4d8d;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: #ff2f75;
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="box">
+    <h1>💖สำหรับคนพิเศษของฉัน💖</h1>
+    <p>กดปุ่มด้านล่างเพื่อเปิดเพลงและเข้าสู่โลกของเรา</p>
+    <button onclick="enterSite()">▶️ เปิดเพลงและเข้าเว็บ</button>
+  </div>
+
+  <script>
+    function enterSite() {
+      window.location.href = "main.html";
+    }
+  </script>
+
+</body>
+</html>

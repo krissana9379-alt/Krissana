@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <title>Audio Test Online</title>
+</head>
+<body>
+  <h2>ทดสอบเสียงจากอินเทอร์เน็ต</h2>
+  <button onclick="playMusic()">▶️ เล่นเพลง</button>
+
+  <audio id="bgm">
+    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    function playMusic() {
+      const audio = document.getElementById("bgm");
+      audio.play().catch(err => {
+        alert("ยังเล่นไม่ได้");
+        console.error(err);
+      });
+    }
+  </script>
+</body>
+</html>

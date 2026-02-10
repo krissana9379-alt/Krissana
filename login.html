@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <title>Login 💖</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #ffd6e8, #ffeef5);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .login-box {
+      background: white;
+      padding: 35px;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      width: 320px;
+      text-align: center;
+    }
+
+    h1 {
+      color: #ff4d8d;
+      margin-bottom: 10px;
+    }
+
+    p {
+      color: #666;
+      font-size: 15px;
+    }
+
+    input {
+      padding: 12px;
+      border-radius: 25px;
+      border: 1px solid #ddd;
+      width: 85%;
+      font-size: 16px;
+      outline: none;
+      margin-top: 12px;
+    }
+
+    button {
+      margin-top: 15px;
+      padding: 12px 25px;
+      border: none;
+      border-radius: 25px;
+      background: #ff4d8d;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: #ff2f75;
+      transform: scale(1.05);
+    }
+
+    .error {
+      color: red;
+      margin-top: 10px;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="login-box">
+    <h1>💌 For My Love 💌</h1>
+    <p>ใส่รหัสผ่านเพื่อเข้าสู่หัวใจของฉัน<br>(วันเกิดของคนที่คุณรัก)</p>
+    <input type="password" id="password" placeholder="รหัสผ่าน">
+    <br>
+    <button onclick="checkPassword()">เข้าสู่เว็บไซต์</button>
+    <div id="error" class="error"></div>
+  </div>
+
+  <script>
+    const correctPassword = "191246"; // 🔑 เปลี่ยนรหัสตรงนี้
+
+    function checkPassword() {
+      const input = document.getElementById("password").value;
+      if (input === correctPassword) {
+        window.location.href = "index.html";
+      } else {
+        document.getElementById("error").innerText = "รหัสผ่านไม่ถูกต้อง 💔";
+      }
+    }
+  </script>
+
+</body>
+</html>

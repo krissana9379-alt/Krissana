@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <title>KetLove💕</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(255,182,213,0.3), transparent 40%),
+        radial-gradient(circle at 80% 30%, rgba(255,182,213,0.25), transparent 45%),
+        radial-gradient(circle at 50% 80%, rgba(255,182,213,0.25), transparent 45%),
+        linear-gradient(135deg, #ffd6e8, #ffeef5);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow-x: hidden;
+    }
+
+    .container {
+      background: white;
+      padding: 36px;
+      border-radius: 28px;
+      box-shadow: 0 14px 35px rgba(255,77,141,0.25);
+      max-width: 440px;
+      width: 92%;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+      border: 3px solid #ffe0ec;
+    }
+
+    h1, h2 {
+      color: #ff4d8d;
+      margin-bottom: 10px;
+    }
+
+    p {
+      color: #555;
+      font-size: 16px;
+    }
+
+    button {
+      margin-top: 15px;
+      padding: 12px 28px;
+      border: none;
+      border-radius: 30px;
+      background: linear-gradient(135deg, #ff4d8d, #ff7fb1);
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.3s;
+      box-shadow: 0 6px 15px rgba(255,77,141,0.3);
+    }
+
+    button:hover {
+      transform: scale(1.07);
+      box-shadow: 0 8px 20px rgba(255,77,141,0.4);
+    }
+
+    .photo {
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 6px solid #ff4d8d;
+      margin: 18px 0;
+      box-shadow: 0 6px 18px rgba(255,77,141,0.35);
+    }
+
+    .counter {
+      font-size: 18px;
+      color: #ff4d8d;
+      margin: 12px 0 22px;
+      font-weight: bold;
+    }
+
+    .slider {
+      width: 100%;
+      height: 200px;
+      border-radius: 18px;
+      overflow: hidden;
+      margin-top: 18px;
+      border: 4px solid #ffe0ec;
+      box-shadow: 0 6px 18px rgba(255,182,213,0.4);
+    }
+
+    .slider img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: opacity 0.8s ease;
+    }
+
+    /* ===== แผ่นเสียง ===== */
+    .record {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 150px;
+      height: 150px;
+      background: radial-gradient(circle at center, #333 0%, #111 40%, #000 70%);
+      border-radius: 50%;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 20;
+      transform: translateX(200px) scale(0.8);
+      transition: transform 0.6s ease, opacity 0.4s ease;
+      cursor: pointer;
+      opacity: 0;
+      overflow: visible;
+    }
+
+    .record.show {
+      transform: translateX(0) scale(1);
+      opacity: 1;
+    }
+
+    .record.spin {
+      animation: spin 3s linear infinite;
+    }
+
+    /* ❌ เอารูเจาะออก */
+
+    .record img {
+      width: 65px;
+      height: 65px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid #ff4d8d;
+      z-index: 2;
+      background: white;
+    }
+
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    /* ===== หัวใจ + โน้ตเพลงลอยจากแผ่นเสียง ===== */
+    .float-heart, .float-note {
+      position: fixed;
+      pointer-events: none;
+      animation: floatUp 3s ease-out forwards;
+      opacity: 0.9;
+      z-index: 25;
+    }
+
+    .float-heart {
+      width: 18px;
+      height: 18px;
+      background: #ff4d8d;
+      transform: rotate(45deg);
+    }
+
+    .float-heart::before,
+    .float-heart::after {
+      content: '';
+      position: absolute;
+      width: 18px;
+      height: 18px;
+      background: #ff4d8d;
+      border-radius: 50%;
+    }
+
+    .float-heart::before {
+      top: -9px;
+      left: 0;
+    }
+
+    .float-heart::after {
+      left: -9px;
+      top: 0;
+    }
+
+    .float-note {
+      font-size: 22px;
+      color: #ff4d8d;
+      font-weight: bold;
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translate(0, 0) scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: translate(var(--x), -120px) scale(1.4);
+        opacity: 0;
+      }
+    }
+
+    /* ===== หัวใจพื้นหลัง ===== */
+    .heart {
+      position: fixed;
+      bottom: -20px;
+      width: 20px;
+      height: 20px;
+      background: #ff4d8d;
+      transform: rotate(45deg);
+      animation: floatUpBg 6s linear infinite;
+      opacity: 0.6;
+      z-index: 0;
+    }
+
+    .heart::before,
+    .heart::after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: #ff4d8d;
+      border-radius: 50%;
+    }
+
+    .heart::before {
+      top: -10px;
+      left: 0;
+    }
+
+    .heart::after {
+      left: -10px;
+      top: 0;
+    }
+
+    @keyframes floatUpBg {
+      0% {
+        transform: translateY(0) rotate(45deg);
+        opacity: 0.6;
+      }
+      100% {
+        transform: translateY(-120vh) rotate(45deg);
+        opacity: 0;
+      }
+    }
+
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(255,182,213,0.35);
+      backdrop-filter: blur(4px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 10;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .letter-box {
+      background: #fff;
+      border-radius: 34px;
+      width: 400px;
+      padding: 32px;
+      text-align: center;
+      animation: popUp 0.5s ease;
+      position: relative;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 16px 40px rgba(255,77,141,0.3);
+      border: 3px solid #ffe0ec;
+    }
+
+    @keyframes popUp {
+      from { transform: scale(0.5); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .envelope {
+      width: 100%;
+      height: 260px;
+      background: linear-gradient(135deg, #ffe0ec, #ffd1e6);
+      border-radius: 24px;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      box-shadow: inset 0 0 0 3px #ffb6d5, 0 10px 25px rgba(255,77,141,0.25);
+    }
+
+    .envelope::before {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #ffb6d5, #ff8fbf);
+      clip-path: polygon(0 0, 50% 60%, 100% 0, 100% 0, 0 0);
+      top: 0;
+      left: 0;
+      transition: transform 0.6s ease;
+      transform-origin: top;
+      z-index: 3;
+    }
+
+    .envelope.open::before {
+      transform: rotateX(180deg);
+    }
+
+    .letter {
+      position: absolute;
+      bottom: -170%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 94%;
+      background: #fff;
+      border-radius: 20px;
+      padding: 22px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+      transition: bottom 1s ease;
+      max-height: 300px;
+      overflow-y: auto;
+      z-index: 2;
+      border: 2px dashed #ffb6d5;
+    }
+
+    .envelope.open .letter {
+      bottom: 12px;
+    }
+
+    .tap-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: #ff4d8d;
+      font-weight: bold;
+      font-size: 18px;
+      background: rgba(255,255,255,0.95);
+      padding: 10px 20px;
+      border-radius: 25px;
+      pointer-events: none;
+      animation: pulse 1.2s infinite;
+      z-index: 4;
+      box-shadow: 0 4px 10px rgba(255,77,141,0.25);
+    }
+
+    .envelope.open .tap-text {
+      display: none;
+    }
+
+    @keyframes pulse {
+      0% { transform: translate(-50%, -50%) scale(1); }
+      50% { transform: translate(-50%, -50%) scale(1.1); }
+      100% { transform: translate(-50%, -50%) scale(1); }
+    }
+
+    .typed-text {
+      text-align: left;
+      font-size: 16px;
+      color: #555;
+      white-space: pre-line;
+      min-height: 130px;
+      line-height: 1.8;
+    }
+
+    .close-btn {
+      margin-top: 16px;
+      background: #ffe0ec;
+      color: #ff4d8d;
+      display: none;
+      border: 2px solid #ffb6d5;
+    }
+
+    .close-btn.show {
+      display: inline-block;
+    }
+
+    .letter-hearts {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .letter-heart {
+      position: absolute;
+      bottom: -20px;
+      width: 14px;
+      height: 14px;
+      background: #ff4d8d;
+      transform: rotate(45deg);
+      animation: floatUpBg 5s linear infinite;
+      opacity: 0.5;
+    }
+
+    .letter-heart::before,
+    .letter-heart::after {
+      content: '';
+      position: absolute;
+      width: 14px;
+      height: 14px;
+      background: #ff4d8d;
+      border-radius: 50%;
+    }
+
+    .letter-heart::before {
+      top: -7px;
+      left: 0;
+    }
+
+    .letter-heart::after {
+      left: -7px;
+      top: 0;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- เพลงหลัก -->
+  <audio id="bgm" preload="auto" playsinline>
+    <source src="WhatChaRaWaLee.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- เสียงเปิดซอง -->
+  <audio id="openSound" preload="auto" playsinline>
+    <source src="open.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- แผ่นเสียง -->
+  <div class="record" id="record" onclick="toggleMusic()">
+    <img src="S__44507145_0.jpg" alt="รูปแฟน">
+  </div>
+
+  <!-- หน้าหลัก -->
+  <div class="container" id="main">
+    <h1>💕สุขสันต์วันวาเลนไทน์💕</h1>
+    <h2>คุณฐิติมา</h2>
+    <img src="S__44507140_0.jpg" alt="รูปคนพิเศษ" class="photo">
+    <p>ถึงคนพิเศษของพี่บูม💕</p>
+    <div class="counter" id="counter"></div>
+
+    <button id="playBtn" onclick="toggleMusic()">💗 เล่นเพลง</button>
+
+    <h2>📸 อัลบั้มความทรงจำ</h2>
+    <div class="slider">
+      <img id="sliderImage" src="S__44507152_0.jpg" alt="ความทรงจำ">
+    </div>
+
+    <button onclick="showLove()">กดเพื่อรับจดหมาย</button>
+  </div>
+
+  <!-- กล่องจดหมาย -->
+  <div class="overlay hidden" id="letterOverlay">
+    <div class="letter-box">
+      <div class="letter-hearts" id="letterHearts"></div>
+      <h2>💖 จดหมายถึงเธอ 💖</h2>
+      <div class="envelope" onclick="openEnvelope()" id="envelope">
+        <div class="tap-text">แตะเพื่อเปิดซอง💌</div>
+        <div class="letter">
+          <div class="typed-text" id="typedText"></div>
+        </div>
+      </div>
+      <button class="close-btn" id="closeBtn" onclick="closeLetter()">ปิดจดหมาย</button>
+    </div>
+  </div>
+
+  <script>
+    const startDate = new Date("2019-03-06");
+    const audio = document.getElementById("bgm");
+    const openSound = document.getElementById("openSound");
+    const record = document.getElementById("record");
+    const playBtn = document.getElementById("playBtn");
+    const letterHearts = document.getElementById("letterHearts");
+    let isPlaying = false;
+    let heartInterval = null;
+    let floatInterval = null;
+
+    window.onload = () => {
+      startCounter();
+      startSlider();
+    };
+
+    function toggleMusic() {
+      audio.volume = 1.0;
+      audio.muted = false;
+
+      if (!isPlaying) {
+        audio.currentTime = 0;
+        audio.play().then(() => {
+          isPlaying = true;
+          playBtn.innerText = "⏸️ หยุดเพลง";
+          record.classList.add("show");
+          record.classList.add("spin");
+          startFloatingFromRecord();
+        }).catch(err => {
+          alert("❌ ไม่สามารถเล่นเสียงได้\n\nตรวจสอบ:\n1. ชื่อไฟล์เพลงต้องตรง 100%\n2. อยู่โฟลเดอร์เดียวกับไฟล์ HTML\n3. เปิดด้วย Chrome หรือ Edge (ไม่ใช่ LINE / Facebook)");
+          console.error(err);
+        });
+      } else {
+        audio.pause();
+        isPlaying = false;
+        playBtn.innerText = "▶️ เล่นเพลง";
+        record.classList.remove("spin");
+        record.classList.remove("show");
+        stopFloatingFromRecord();
+      }
+    }
+
+    function startFloatingFromRecord() {
+      stopFloatingFromRecord();
+      floatInterval = setInterval(() => {
+        const rect = record.getBoundingClientRect();
+        const x = rect.left + rect.width / 2;
+        const y = rect.top + rect.height / 2;
+
+        const isHeart = Math.random() > 0.5;
+        let el;
+
+        if (isHeart) {
+          el = document.createElement("div");
+          el.className = "float-heart";
+        } else {
+          el = document.createElement("div");
+          el.className = "float-note";
+          const notes = ["🎵", "🎶", "💖"];
+          el.innerText = notes[Math.floor(Math.random() * notes.length)];
+        }
+
+        el.style.left = x + "px";
+        el.style.top = y + "px";
+        el.style.setProperty("--x", (Math.random() * 100 - 50) + "px");
+
+        document.body.appendChild(el);
+        setTimeout(() => el.remove(), 3000);
+      }, 600);
+    }
+
+    function stopFloatingFromRecord() {
+      if (floatInterval) {
+        clearInterval(floatInterval);
+        floatInterval = null;
+      }
+    }
+
+    function startCounter() {
+      function update() {
+        const now = new Date();
+        let years = now.getFullYear() - startDate.getFullYear();
+        let months = now.getMonth() - startDate.getMonth();
+        let days = now.getDate() - startDate.getDate();
+
+        if (days < 0) {
+          months--;
+          const prevMonth = new Date(now.getFullYear(), now.getMonth(), 0);
+          days += prevMonth.getDate();
+        }
+
+        if (months < 0) {
+          years--;
+          months += 12;
+        }
+
+        document.getElementById("counter").innerText =
+          `เราคบกันมาแล้ว ${years} ปี ${months} เดือน 💖`;
+      }
+
+      update();
+      setInterval(update, 60 * 60 * 1000);
+    }
+
+    function showLove() {
+      document.getElementById("letterOverlay").classList.remove("hidden");
+      document.getElementById("typedText").innerText = "";
+      document.getElementById("envelope").classList.remove("open");
+      document.getElementById("closeBtn").classList.remove("show");
+      letterIndex = 0;
+      charIndex = 0;
+      isTyping = false;
+      startLetterHearts();
+    }
+
+    function closeLetter() {
+      document.getElementById("letterOverlay").classList.add("hidden");
+      stopLetterHearts();
+    }
+
+    function openEnvelope() {
+      const env = document.getElementById("envelope");
+      if (!env.classList.contains("open")) {
+        env.classList.add("open");
+        openSound.currentTime = 0;
+        openSound.play().catch(() => {});
+        typeLetter();
+      }
+    }
+
+    const letterLines = [
+      "ถึงน้องแคทคนที่น่ารักที่สุดดดดด 💖",
+      "ผ่านมาแล้วเกือบจะ 7 ปี แต่ความรักที่มีให้เธอ",
+      "กลับเพิ่มขึ้นทุกวันเลยนะ ไม่เคยลดลงเลยสักนิดอิอิ",
+      "ขอบคุณที่จับมือกันมาตลอดทาง",
+      "ไม่ว่าจะสุข เศร้า เหนื่อย หรือท้อ",
+      "บูมสัญญาว่าจะอยู่ข้างๆ แคทแบบนี้ตลอดไป รักนะครับ 💝",
+    ];
+
+    let letterIndex = 0;
+    let charIndex = 0;
+    let isTyping = false;
+
+    function typeLetter() {
+      if (isTyping) return;
+      isTyping = true;
+
+      const output = document.getElementById("typedText");
+
+      function typeLine() {
+        if (letterIndex < letterLines.length) {
+          const line = letterLines[letterIndex];
+          if (charIndex < line.length) {
+            output.innerHTML += line.charAt(charIndex);
+            charIndex++;
+            setTimeout(typeLine, 45);
+          } else {
+            output.innerHTML += "\n";
+            letterIndex++;
+            charIndex = 0;
+            setTimeout(typeLine, 400);
+          }
+        } else {
+          document.getElementById("closeBtn").classList.add("show");
+        }
+      }
+
+      typeLine();
+    }
+
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.animationDuration = (Math.random() * 3 + 4) + "s";
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 6000);
+    }
+
+    setInterval(createHeart, 1200);
+
+    function startLetterHearts() {
+      stopLetterHearts();
+      heartInterval = setInterval(() => {
+        const heart = document.createElement("div");
+        heart.className = "letter-heart";
+        heart.style.left = Math.random() * 100 + "%";
+        heart.style.animationDuration = (Math.random() * 2 + 3) + "s";
+        letterHearts.appendChild(heart);
+        setTimeout(() => heart.remove(), 5000);
+      }, 600);
+    }
+
+    function stopLetterHearts() {
+      if (heartInterval) {
+        clearInterval(heartInterval);
+        heartInterval = null;
+      }
+      letterHearts.innerHTML = "";
+    }
+
+    /* ===== ระบบสไลด์รูป ===== */
+    const images = ["S__44507152_0.jpg", "S__44507151_0.jpg", "S__44507156_0.jpg", "S__44507154_0.jpg", "S__44507155_0.jpg"];
+    let currentImageIndex = 0;
+    const sliderImage = document.getElementById("sliderImage");
+
+    function startSlider() {
+      setInterval(() => {
+        currentImageIndex = (currentImageIndex + 1) % images.length;
+        sliderImage.style.opacity = 0;
+        setTimeout(() => {
+          sliderImage.src = images[currentImageIndex];
+          sliderImage.style.opacity = 1;
+        }, 400);
+      }, 3000);
+    }
+  </script>
+
+</body>
+</html>
