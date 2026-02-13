@@ -488,7 +488,7 @@
         audio.currentTime = 0;
         audio.play().then(() => {
           isPlaying = true;
-          playBtn.innerText = "💔 หยุดเพลง";
+          playBtn.innerText = "❤️‍🔥 หยุดเพลง";
           record.classList.add("show");
           record.classList.add("spin");
           startFloatingFromRecord();
@@ -499,7 +499,7 @@
       } else {
         audio.pause();
         isPlaying = false;
-        playBtn.innerText = "❤️‍🔥 เล่นเพลง";
+        playBtn.innerText = "💔 เล่นเพลง";
         record.classList.remove("spin");
         record.classList.remove("show");
         stopFloatingFromRecord();
@@ -684,4 +684,5 @@
 
 </body>
 </html>
+
 
